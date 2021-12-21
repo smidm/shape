@@ -1,7 +1,7 @@
 import unittest
 from numpy.testing import assert_array_equal
 import numpy as np
-from shapes.angles import angle_absolute_error, angle_absolute_error_direction_agnostic
+from shapes import angle_absolute_error, angle_absolute_error_direction_agnostic
 
 
 class AnglesTestCase(unittest.TestCase):

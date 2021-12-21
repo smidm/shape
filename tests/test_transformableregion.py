@@ -3,7 +3,7 @@ import matplotlib.pylab as plt
 import numpy as np
 from numpy.testing import assert_array_equal
 import os.path
-from shapes.angles import angle_absolute_error
+from shapes import angle_absolute_error
 import shapes.ep
 import shapes.transformableregion as tr
 

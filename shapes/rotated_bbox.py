@@ -1,9 +1,7 @@
 import cv2
 import numpy as np
 import copy
-
-from shapes.shape import Shape, BBox
-from shapes.ep import p2e, e2p, column
+from shapes import Shape, BBox, p2e, e2p, column
 
 
 class RotatedBBox(BBox):
@@ -12,7 +10,7 @@ class RotatedBBox(BBox):
         yx = region.centroid()
         tmp = cls(yx[1], yx[0], -np.rad2deg(region.theta_), 2 * region.major_axis_, 2 * region.minor_axis_,
                   region.frame())
-            return tmp
+        return tmp
 
     @classmethod
     def from_planar_object(cls, another_object):

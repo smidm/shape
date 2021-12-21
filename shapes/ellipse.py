@@ -4,7 +4,7 @@ import numpy as np
 from core.region.region import Region
 from shapes.point import Point
 from shapes.ep import p2e, e2p, column
-from utils.angles import angle_absolute_error_direction_agnostic, angle_absolute_error
+from shapes import angle_absolute_error_direction_agnostic, angle_absolute_error
 
 
 class Ellipse(Point):

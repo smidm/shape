@@ -1,6 +1,6 @@
 import unittest
 import matplotlib.pylab as plt
-from shapes.ellipse import Ellipse
+from shapes import Ellipse
 
 
 class EllipseTestCase(unittest.TestCase):

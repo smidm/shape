@@ -1,6 +1,6 @@
 import unittest
 from numpy.testing import assert_array_almost_equal
-from shapes.polygon import Polygon
+from shapes import Polygon
 
 
 class PolygonTestCase(unittest.TestCase):
