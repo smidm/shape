@@ -1,12 +1,11 @@
 import unittest
-
-import shapes.ep
-import shapes.transformableregion as tr
 import matplotlib.pylab as plt
 import numpy as np
 from numpy.testing import assert_array_equal
 import os.path
-from utils.angles import angle_absolute_error
+from shapes.angles import angle_absolute_error
+import shapes.ep
+import shapes.transformableregion as tr
 
 
 class EuclideanProjectiveTestCase(unittest.TestCase):
@@ -46,13 +45,13 @@ class EuclideanProjectiveTestCase(unittest.TestCase):
 
 class TransformableRegionTestCase(unittest.TestCase):
     def setUp(self):
-        img = plt.imread('test/ferda.png')
+        img = plt.imread('tests/data/ferda.png')
         self.center_yx = np.array(img.shape[:2][::-1]) / 2
         self.tr = tr.TransformableRegion(img)
 
     def check_get_transformed_angle(self, angle):
         self.tr.rotate(angle, self.center_yx)
-        plt.imsave(os.path.join('test/out/{}.png'.format(angle)), self.tr.get_img())
+        plt.imsave(os.path.join('tests/out/{}.png'.format(angle)), self.tr.get_img())
         self.assertTrue(angle_absolute_error(self.tr.get_transformed_angle(0), angle) == 0)
 
     def test_get_transformed_angle1(self):

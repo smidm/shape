@@ -1,7 +1,6 @@
 import unittest
-# import matplotlib.pylab as plt
-from shapes.polygon import Polygon
 from numpy.testing import assert_array_almost_equal
+from shapes.polygon import Polygon
 
 
 class PolygonTestCase(unittest.TestCase):
@@ -34,7 +33,3 @@ class PolygonTestCase(unittest.TestCase):
 
         line = Polygon([(1, 1), (9, 9)])
         self.assertTrue(rectangle.is_intersecting(line))
-
-
-
-

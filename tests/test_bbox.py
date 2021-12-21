@@ -1,7 +1,7 @@
 import unittest
 import matplotlib.pylab as plt
-from shapes.bbox import BBox
 from numpy.testing import assert_array_equal
+from shapes.bbox import BBox
 
 
 class BBoxTestCase(unittest.TestCase):
