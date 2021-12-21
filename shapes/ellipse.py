@@ -1,28 +1,11 @@
 import cv2
 import numpy as np
-
-from core.region.region import Region
 from shapes.point import Point
 from shapes.ep import p2e, e2p, column
 from shapes import angle_absolute_error_direction_agnostic, angle_absolute_error
 
 
 class Ellipse(Point):
-    @classmethod
-    def from_region(cls, region):
-        yx = region.centroid()
-        tmp = cls(yx[1], yx[0], -np.rad2deg(region.theta_), 2 * region.major_axis_, 2 * region.minor_axis_,
-                  region.frame())
-        return tmp
-
-    def to_region(self):
-        r = Region(is_origin_interaction=True, frame=self.frame)
-        r.centroid_ = self.xy[::-1]
-        r.theta_ = -np.deg2rad(self.angle_deg)
-        r.major_axis_ = self.major / 2
-        r.minor_axis_ = self.minor / 2
-        return r
-
     @classmethod
     def from_dict(cls, region_dict, frame=None):
         return cls(region_dict['0_x'], region_dict['0_y'], region_dict['0_angle_deg_cw'], region_dict['0_major'],

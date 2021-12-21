@@ -4,13 +4,6 @@ import numpy as np
 
 class Shape(object):
     @classmethod
-    def from_region(cls, region):
-        pass
-
-    def to_region(self):
-        pass
-
-    @classmethod
     def from_dict(cls, region_dict, frame=None):
         pass
 

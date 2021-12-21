@@ -6,13 +6,6 @@ from shapes import Shape, BBox, p2e, e2p, column
 
 class RotatedBBox(BBox):
     @classmethod
-    def from_region(cls, region):
-        yx = region.centroid()
-        tmp = cls(yx[1], yx[0], -np.rad2deg(region.theta_), 2 * region.major_axis_, 2 * region.minor_axis_,
-                  region.frame())
-        return tmp
-
-    @classmethod
     def from_planar_object(cls, another_object):
         xmin, ymin, width, height = cv2.boundingRect(another_object.to_poly())
         xmax = xmin + width
