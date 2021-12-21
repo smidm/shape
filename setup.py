@@ -13,8 +13,9 @@ setup(
 #    license='Apache License 2.0',
     packages=['shapes'],
     install_requires=[
-        'opencv-python',
+        'opencv-python-headless',
         'numpy',
+        'matplotlib',
     ],
 )
 
