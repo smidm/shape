@@ -32,7 +32,7 @@ class AnglesTestCase(unittest.TestCase):
         self.assertEqual(angle_absolute_error_direction_agnostic(10, 300, np), 70)
         self.assertEqual(angle_absolute_error_direction_agnostic(-30, 300, np), 30)
         assert_array_equal(angle_absolute_error_direction_agnostic(np.array([10, 0, 0]),
-                                                                           np.array([300, 360, -10]), np),
+                                                                   np.array([300, 360, -10]), np),
                            np.array([70, 0, 10]))
 
 

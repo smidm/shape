@@ -29,4 +29,3 @@ class Point(Shape):
         if color is None:
             color = 'r'
         plt.scatter(self.x, self.y, c=color, label=label)
-

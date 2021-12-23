@@ -3,7 +3,7 @@ import numpy as np
 
 from shapes.shape import Shape
 
-#TODO: closed, open polygon?
+# TODO: closed, open polygon?
 
 
 class Polygon(Shape):
@@ -100,17 +100,18 @@ class Polygon(Shape):
         if color is None:
             color = 'r'
         patch = Polygon(self.points,
-                             facecolor='none', edgecolor=color,
-                             label=label, linewidth=1)
+                        facecolor='none', edgecolor=color,
+                        label=label, linewidth=1)
         ax.add_patch(patch)
         if label is not None:
             plt.annotate(label, self.xy)  # , xytext=(0, -self.height / 2), textcoords='offset pixels')
         return patch
 
     def draw_to_image(self, img, label=None, color=None):
+        def round_tuple(x):
+            return tuple([int(round(num)) for num in x])
         if color is None:
             color = (0, 0, 255)
-        round_tuple = lambda x: tuple([int(round(num)) for num in x])
         cv2.polylines(img, self.points, color)
         if label is not None:
             font_size = 1

@@ -1,7 +1,5 @@
 import cv2
 import numpy as np
-import copy
-
 from shapes.shape import Shape
 from shapes.ep import p2e, e2p, column
 
@@ -36,9 +34,9 @@ class BBox(Shape):
         self.ymax = ymax
 
     def __str__(self):
-        return('BBox xymin ({xmin:.1f},{ymin:.1f}) xymax ({xmax:.1f},{ymax:.1f}), '\
-               'width height ({width:.1f},{height:.1f}), frame {frame}'.format(
-            width=self.width, height=self.height, **self.__dict__))
+        return('BBox xymin ({xmin:.1f},{ymin:.1f}) xymax ({xmax:.1f},{ymax:.1f}), '
+               'width height ({width:.1f},{height:.1f}), frame {frame}'.
+               format(width=self.width, height=self.height, **self.__dict__))
 
     @property
     def xy(self):
@@ -151,15 +149,16 @@ class BBox(Shape):
         if color is None:
             color = 'r'
         ax.add_patch(Rectangle((self.xmin, self.ymin), self.width, self.height,
-                             facecolor='none', edgecolor=color,
-                             label=label, linewidth=1))
+                               facecolor='none', edgecolor=color,
+                               label=label, linewidth=1))
         if label is not None:
-            plt.annotate(label, self.xy) # , xytext=(0, -self.height / 2), textcoords='offset pixels')
+            plt.annotate(label, self.xy)  # , xytext=(0, -self.height / 2), textcoords='offset pixels')
 
     def draw_to_image(self, img, label=None, color=None):
+        def round_tuple(x):
+            return tuple([int(round(num)) for num in x])
         if color is None:
             color = (0, 0, 255)
-        round_tuple = lambda x: tuple([int(round(num)) for num in x])
         cv2.rectangle(img, round_tuple((self.xmin, self.ymin)),
                       round_tuple((self.xmax, self.ymax)), color)
         if label is not None:

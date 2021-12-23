@@ -101,8 +101,8 @@ class Ellipse(Point):
             color = 'r'
         super(Ellipse, self).draw(ax, label, color)
         ax.add_patch(matplotlib.patches.Ellipse(self.xy, self.major, self.minor, self.angle_deg,
-                             facecolor='none', edgecolor=color,
-                             label=label, linewidth=1))
+                                                facecolor='none', edgecolor=color,
+                                                label=label, linewidth=1))
 
     def __add__(self, other):
         """

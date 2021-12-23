@@ -1,5 +1,4 @@
 import unittest
-import matplotlib.pylab as plt
 from numpy.testing import assert_array_equal
 from shapes import BBox
 
@@ -15,7 +14,7 @@ class BBoxTestCase(unittest.TestCase):
         self.assertFalse(bbox.is_partially_outside_bounds(0, 0, 30, 30))  # inside
         self.assertTrue(bbox.is_strictly_outside_bounds(30, 30, 40, 40))
         self.assertFalse(bbox.is_strictly_outside_bounds(15, 15, 30, 30))
-        
+
     def test_bounds_bbox(self):
         bbox = BBox(10, 10, 20, 20)
         self.assertTrue(bbox.is_inside_bbox(BBox(0, 0, 30, 30)))

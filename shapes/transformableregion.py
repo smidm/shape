@@ -151,4 +151,3 @@ class TransformableRegion:
             img = np.dstack((self.img, self.mask))
         return cv2.warpAffine(img, self.transformation[:2], self.img.shape[:2][::-1],
                               borderMode=cv2.BORDER_REPLICATE)
-
