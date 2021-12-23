@@ -1,5 +1,7 @@
 import unittest
+
 import matplotlib.pylab as plt
+
 from shapes import Ellipse
 
 

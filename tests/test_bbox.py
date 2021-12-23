@@ -1,5 +1,7 @@
 import unittest
+
 from numpy.testing import assert_array_equal
+
 from shapes import BBox
 
 
