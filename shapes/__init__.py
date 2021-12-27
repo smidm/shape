@@ -20,3 +20,5 @@ __all__ = ['angle_absolute_error_direction_agnostic',
            'Shape',
            'TransformableRegion',
            ]
+
+__version__ = '0.1'
