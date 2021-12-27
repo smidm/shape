@@ -150,7 +150,7 @@ class Ellipse(Point):
 
     def __add__(self, other):
         """
-        Return mean ellipse.
+        Return mean of two ellipses.
 
         :param other: Ellipse
         :return: mean Ellipse
