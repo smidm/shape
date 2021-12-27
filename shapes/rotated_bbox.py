@@ -15,8 +15,8 @@ class RotatedBBox(BBox):
     @classmethod
     def from_dict(cls, region_dict, frame=None):
         d = region_dict
-        if 'x' in d and 'y' in d and 'width' in d and 'height' in d:
-            return cls(d['x'], d['y'], d['x'] + d['width'], d['y'] + d['height'], frame)
+        if "x" in d and "y" in d and "width" in d and "height" in d:
+            return cls(d["x"], d["y"], d["x"] + d["width"], d["y"] + d["height"], frame)
 
     @classmethod
     def from_xywh(cls, x, y, width, height, frame=None):
@@ -24,7 +24,13 @@ class RotatedBBox(BBox):
 
     @classmethod
     def from_xycenter_wh(cls, x_center, y_center, width, height, frame=None):
-        return cls(x_center - width / 2, y_center - height / 2, x_center + width / 2, y_center + height / 2, frame)
+        return cls(
+            x_center - width / 2,
+            y_center - height / 2,
+            x_center + width / 2,
+            y_center + height / 2,
+            frame,
+        )
 
     def __init__(self, xmin=None, ymin=None, xmax=None, ymax=None, frame=None):
         super(BBox, self).__init__(frame)
@@ -34,9 +40,12 @@ class RotatedBBox(BBox):
         self.ymax = ymax
 
     def __str__(self):
-        return('BBox xymin ({xmin:.1f},{ymin:.1f}) xymax ({xmax:.1f},{ymax:.1f}), '
-               'width height ({width:.1f},{height:.1f}), frame {frame}'.
-               format(width=self.width, height=self.height, **self.__dict__))
+        return (
+            "BBox xymin ({xmin:.1f},{ymin:.1f}) xymax ({xmax:.1f},{ymax:.1f}), "
+            "width height ({width:.1f},{height:.1f}), frame {frame}".format(
+                width=self.width, height=self.height, **self.__dict__
+            )
+        )
 
     @property
     def xy(self):
@@ -51,7 +60,12 @@ class RotatedBBox(BBox):
         return self.ymax - self.ymin
 
     def to_poly(self):
-        return [(self.xmin, self.ymin), (self.xmin, self.ymax), (self.xmax, self.ymax), (self.xmax, self.ymin)]
+        return [
+            (self.xmin, self.ymin),
+            (self.xmin, self.ymax),
+            (self.xmax, self.ymax),
+            (self.xmax, self.ymin),
+        ]
 
     def is_strictly_outside_bounds(self, xmin, ymin, xmax, ymax):
         return self.iou(BBox(xmin, ymin, xmax, ymax)) == 0
@@ -60,13 +74,20 @@ class RotatedBBox(BBox):
         return self.is_strictly_outside_bounds(*bbox.to_array()[:4])
 
     def is_partially_outside_bounds(self, xmin, ymin, xmax, ymax):
-        return self.iou(BBox(xmin, ymin, xmax, ymax)) > 0 and not self.is_inside_bounds(xmin, ymin, xmax, ymax)
+        return self.iou(BBox(xmin, ymin, xmax, ymax)) > 0 and not self.is_inside_bounds(
+            xmin, ymin, xmax, ymax
+        )
 
     def is_partially_outside_bbox(self, bbox):
         return self.is_partially_outside_bounds(*bbox.to_array()[:4])
 
     def is_inside_bounds(self, xmin, ymin, xmax, ymax):
-        return self.xmin > xmin and self.ymin > ymin and self.xmax < xmax and self.ymax < ymax
+        return (
+            self.xmin > xmin
+            and self.ymin > ymin
+            and self.xmax < xmax
+            and self.ymax < ymax
+        )
 
     def is_inside_bbox(self, bbox):
         return self.is_inside_bounds(*bbox.to_array()[:4])
@@ -130,7 +151,7 @@ class RotatedBBox(BBox):
         if rotation_center_xy is None:
             rotation_center_xy = self.xy
         self.angle_deg += angle_deg_cw
-        rot = cv2.getRotationMatrix2D(tuple(rotation_center_xy), -angle_deg_cw, 1.)
+        rot = cv2.getRotationMatrix2D(tuple(rotation_center_xy), -angle_deg_cw, 1.0)
         self.xy = p2e(np.vstack((rot, (0, 0, 1))).dot(e2p(column(self.xy)))).flatten()
         return self
 
@@ -144,27 +165,52 @@ class RotatedBBox(BBox):
     def draw(self, ax=None, label=None, color=None):
         import matplotlib.pylab as plt
         from matplotlib.patches import Rectangle
+
         if ax is None:
             ax = plt.gca()
         if color is None:
-            color = 'r'
-        ax.add_patch(Rectangle((self.xmin, self.ymin), self.width, self.height,
-                               facecolor='none', edgecolor=color,
-                               label=label, linewidth=1))
+            color = "r"
+        ax.add_patch(
+            Rectangle(
+                (self.xmin, self.ymin),
+                self.width,
+                self.height,
+                facecolor="none",
+                edgecolor=color,
+                label=label,
+                linewidth=1,
+            )
+        )
         if label is not None:
-            plt.annotate(label, self.xy)  # , xytext=(0, -self.height / 2), textcoords='offset pixels')
+            plt.annotate(
+                label, self.xy
+            )  # , xytext=(0, -self.height / 2), textcoords='offset pixels')
 
     def draw_to_image(self, img, label=None, color=None):
         def round_tuple(x):
             return tuple([int(round(num)) for num in x])
+
         if color is None:
             color = (0, 0, 255)
-        cv2.rectangle(img, round_tuple((self.xmin, self.ymin)),
-                      round_tuple((self.xmax, self.ymax)), color)
+        cv2.rectangle(
+            img,
+            round_tuple((self.xmin, self.ymin)),
+            round_tuple((self.xmax, self.ymax)),
+            color,
+        )
         if label is not None:
             font_size = 1
             font_thickness = 1
             font_face = cv2.FONT_HERSHEY_SIMPLEX
             text_size, _ = cv2.getTextSize(label, font_face, font_size, font_thickness)
-            cv2.putText(img, label, round_tuple((self.xy[0] - (text_size[0] / 2), self.ymin - text_size[1])),
-                        font_face, font_size, (255, 255, 255), font_thickness)
+            cv2.putText(
+                img,
+                label,
+                round_tuple(
+                    (self.xy[0] - (text_size[0] / 2), self.ymin - text_size[1])
+                ),
+                font_face,
+                font_size,
+                (255, 255, 255),
+                font_thickness,
+            )

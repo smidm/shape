@@ -19,5 +19,5 @@ def angle_absolute_error(angles_pred, angles_true, backend=np):
     angles_true %= 360
     return backend.minimum(
         backend.abs(angles_pred - angles_true),
-        180 - backend.abs(angles_pred % 180 - angles_true % 180)
+        180 - backend.abs(angles_pred % 180 - angles_true % 180),
     )

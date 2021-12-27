@@ -27,6 +27,7 @@ class Point(Shape):
 
     def draw(self, ax=None, label=None, color=None):
         import matplotlib.pylab as plt
+
         if color is None:
-            color = 'r'
+            color = "r"
         plt.scatter(self.x, self.y, c=color, label=label)

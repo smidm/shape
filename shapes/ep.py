@@ -12,7 +12,11 @@ def p2e(projective):
     :rtype: numpy.ndarray, shape=(2 or 3, n)
     """
     assert type(projective) == np.ndarray
-    assert projective.ndim == 1 or (projective.ndim == 2 and (projective.shape[0] == 4) or (projective.shape[0] == 3))
+    assert projective.ndim == 1 or (
+        projective.ndim == 2
+        and (projective.shape[0] == 4)
+        or (projective.shape[0] == 3)
+    )
     if projective.ndim == 1:
         return (projective / projective[-1])[0:-1]
     else:
@@ -30,7 +34,9 @@ def e2p(euclidean):
     :rtype: numpy.ndarray, shape=(3 or 4, n)
     """
     assert type(euclidean) == np.ndarray
-    assert euclidean.ndim == 1 or (euclidean.ndim == 2 and (euclidean.shape[0] == 3 or euclidean.shape[0] == 2))
+    assert euclidean.ndim == 1 or (
+        euclidean.ndim == 2 and (euclidean.shape[0] == 3 or euclidean.shape[0] == 2)
+    )
     if euclidean.ndim == 1:
         return np.append(euclidean, 1)
     else:

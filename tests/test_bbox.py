@@ -12,7 +12,9 @@ class BBoxTestCase(unittest.TestCase):
         self.assertFalse(bbox.is_inside_bounds(30, 30, 40, 40))
         self.assertTrue(bbox.is_partially_outside_bounds(11, 11, 30, 30))
         self.assertTrue(bbox.is_partially_outside_bounds(12, 0, 13, 15))
-        self.assertFalse(bbox.is_partially_outside_bounds(30, 30, 40, 40))  # strictly outside
+        self.assertFalse(
+            bbox.is_partially_outside_bounds(30, 30, 40, 40)
+        )  # strictly outside
         self.assertFalse(bbox.is_partially_outside_bounds(0, 0, 30, 30))  # inside
         self.assertTrue(bbox.is_strictly_outside_bounds(30, 30, 40, 40))
         self.assertFalse(bbox.is_strictly_outside_bounds(15, 15, 30, 30))
@@ -23,25 +25,37 @@ class BBoxTestCase(unittest.TestCase):
         self.assertFalse(bbox.is_inside_bbox(BBox(30, 30, 40, 40)))
         self.assertTrue(bbox.is_partially_outside_bbox(BBox(11, 11, 30, 30)))
         self.assertTrue(bbox.is_partially_outside_bbox(BBox(12, 0, 13, 15)))
-        self.assertFalse(bbox.is_partially_outside_bbox(BBox(30, 30, 40, 40)))  # strictly outside
+        self.assertFalse(
+            bbox.is_partially_outside_bbox(BBox(30, 30, 40, 40))
+        )  # strictly outside
         self.assertFalse(bbox.is_partially_outside_bbox(BBox(0, 0, 30, 30)))  # inside
         self.assertTrue(bbox.is_strictly_outside_bbox(BBox(30, 30, 40, 40)))
         self.assertFalse(bbox.is_strictly_outside_bbox(BBox(15, 15, 30, 30)))
 
     def test_intersection(self):
-        intersection = BBox(0, 0, 20, 20).intersection(BBox(10, 10, 30, 30))  # standard intersection
+        intersection = BBox(0, 0, 20, 20).intersection(
+            BBox(10, 10, 30, 30)
+        )  # standard intersection
         assert_array_equal(intersection.to_array()[:4], [10, 10, 20, 20])
 
-        intersection = BBox(0, 0, 20, 20).intersection(BBox(-5, -5, 10, 10))  # standard intersection
+        intersection = BBox(0, 0, 20, 20).intersection(
+            BBox(-5, -5, 10, 10)
+        )  # standard intersection
         assert_array_equal(intersection.to_array()[:4], [0, 0, 10, 10])
 
-        intersection = BBox(0, 0, 20, 20).intersection(BBox(5, 5, 10, 10))  # one inside other
+        intersection = BBox(0, 0, 20, 20).intersection(
+            BBox(5, 5, 10, 10)
+        )  # one inside other
         assert_array_equal(intersection.to_array()[:4], [5, 5, 10, 10])
 
-        intersection = BBox(5, 5, 10, 10).intersection(BBox(0, 0, 20, 20))  # one inside other
+        intersection = BBox(5, 5, 10, 10).intersection(
+            BBox(0, 0, 20, 20)
+        )  # one inside other
         assert_array_equal(intersection.to_array()[:4], [5, 5, 10, 10])
 
-        intersection = BBox(5, 5, 10, 10).intersection(BBox(20, 20, 30, 30))  # no intersection
+        intersection = BBox(5, 5, 10, 10).intersection(
+            BBox(20, 20, 30, 30)
+        )  # no intersection
         self.assertIsNone(intersection)
 
     def test_cut(self):

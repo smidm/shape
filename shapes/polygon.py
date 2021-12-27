@@ -26,11 +26,11 @@ class Polygon(Shape):
         self.points = points
 
     def __str__(self):
-        return 'Polygon {points}'.format(points=self.points)
+        return "Polygon {points}".format(points=self.points)
 
     @property
     def xy(self):
-        """ Computes the centroid (a.k.a. center of gravity) for a non-self-intersecting polygon.
+        """Computes the centroid (a.k.a. center of gravity) for a non-self-intersecting polygon.
 
         source: https://stackoverflow.com/a/56826826/322468
 
@@ -50,7 +50,9 @@ class Polygon(Shape):
         for ii in range(len(self.points)):
             p1 = self.points[ii]
             p2 = self.points[ii - 1]
-            f = (p1[0] - offset[0]) * (p2[1] - offset[1]) - (p2[0] - offset[0]) * (p1[1] - offset[1])
+            f = (p1[0] - offset[0]) * (p2[1] - offset[1]) - (p2[0] - offset[0]) * (
+                p1[1] - offset[1]
+            )
             double_area += f
             center_of_gravity[0] += (p1[0] + p2[0] - 2 * offset[0]) * f
             center_of_gravity[1] += (p1[1] + p2[1] - 2 * offset[1]) * f
@@ -72,11 +74,15 @@ class Polygon(Shape):
         :param other: Polygon
         :return: bool
         """
-        ret, _ = cv2.intersectConvexConvex(self.points.astype('float32'), other.points.astype('float32'))
+        ret, _ = cv2.intersectConvexConvex(
+            self.points.astype("float32"), other.points.astype("float32")
+        )
         return bool(ret)
 
     def intersection(self, other):
-        _, intersection_poly = cv2.intersectConvexConvex(self.points.astype('float32'), other.points.astype('float32'))
+        _, intersection_poly = cv2.intersectConvexConvex(
+            self.points.astype("float32"), other.points.astype("float32")
+        )
         return intersection_poly
 
     def to_array(self):
@@ -95,21 +101,25 @@ class Polygon(Shape):
     def draw(self, ax=None, label=None, color=None):
         import matplotlib.pylab as plt
         from matplotlib.patches import Polygon
+
         if ax is None:
             ax = plt.gca()
         if color is None:
-            color = 'r'
-        patch = Polygon(self.points,
-                        facecolor='none', edgecolor=color,
-                        label=label, linewidth=1)
+            color = "r"
+        patch = Polygon(
+            self.points, facecolor="none", edgecolor=color, label=label, linewidth=1
+        )
         ax.add_patch(patch)
         if label is not None:
-            plt.annotate(label, self.xy)  # , xytext=(0, -self.height / 2), textcoords='offset pixels')
+            plt.annotate(
+                label, self.xy
+            )  # , xytext=(0, -self.height / 2), textcoords='offset pixels')
         return patch
 
     def draw_to_image(self, img, label=None, color=None):
         def round_tuple(x):
             return tuple([int(round(num)) for num in x])
+
         if color is None:
             color = (0, 0, 255)
         cv2.polylines(img, self.points, color)
@@ -118,5 +128,14 @@ class Polygon(Shape):
             font_thickness = 1
             font_face = cv2.FONT_HERSHEY_SIMPLEX
             text_size, _ = cv2.getTextSize(label, font_face, font_size, font_thickness)
-            cv2.putText(img, label, round_tuple((self.xy[0] - (text_size[0] / 2), self.ymin - text_size[1])),
-                        font_face, font_size, (255, 255, 255), font_thickness)
+            cv2.putText(
+                img,
+                label,
+                round_tuple(
+                    (self.xy[0] - (text_size[0] / 2), self.ymin - text_size[1])
+                ),
+                font_face,
+                font_size,
+                (255, 255, 255),
+                font_thickness,
+            )

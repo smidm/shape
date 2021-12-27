@@ -3,8 +3,7 @@ import unittest
 import numpy as np
 from numpy.testing import assert_array_equal
 
-from shapes import (angle_absolute_error,
-                    angle_absolute_error_direction_agnostic)
+from shapes import angle_absolute_error, angle_absolute_error_direction_agnostic
 
 
 class AnglesTestCase(unittest.TestCase):
@@ -34,10 +33,13 @@ class AnglesTestCase(unittest.TestCase):
         self.assertEqual(angle_absolute_error_direction_agnostic(0, 360, np), 0)
         self.assertEqual(angle_absolute_error_direction_agnostic(10, 300, np), 70)
         self.assertEqual(angle_absolute_error_direction_agnostic(-30, 300, np), 30)
-        assert_array_equal(angle_absolute_error_direction_agnostic(np.array([10, 0, 0]),
-                                                                   np.array([300, 360, -10]), np),
-                           np.array([70, 0, 10]))
+        assert_array_equal(
+            angle_absolute_error_direction_agnostic(
+                np.array([10, 0, 0]), np.array([300, 360, -10]), np
+            ),
+            np.array([70, 0, 10]),
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

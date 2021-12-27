@@ -82,8 +82,9 @@ class TransformableRegion:
         if rotation_center_yx is None:
             rotation_center_yx = np.array((0, 0))
 
-        rot = cv2.getRotationMatrix2D(tuple(rotation_center_yx[::-1]),
-                                      -angle_deg_cw, 1.)
+        rot = cv2.getRotationMatrix2D(
+            tuple(rotation_center_yx[::-1]), -angle_deg_cw, 1.0
+        )
         self.transformation = np.vstack((rot, (0, 0, 1))).dot(self.transformation)
         if self.model is not None:
             self.model.rotate(angle_deg_cw, rotation_center_yx[::-1])
@@ -92,27 +93,31 @@ class TransformableRegion:
     def scale(self, factor, center_yx=None):
         if center_yx is None:
             center_yx = self.region.centroid()
-        trans = cv2.getRotationMatrix2D(center_yx[::-1], 0., factor)
+        trans = cv2.getRotationMatrix2D(center_yx[::-1], 0.0, factor)
         self.transformation = np.vstack((trans, (0, 0, 1))).dot(self.transformation)
         if self.model is not None:
-            assert False, 'not implemented'
+            assert False, "not implemented"
         return self
 
     def move(self, delta_yx):
-        move_trans = np.array([[1., 0., delta_yx[1]],
-                               [0., 1., delta_yx[0]],
-                               [0., 0., 1.]])
+        move_trans = np.array(
+            [[1.0, 0.0, delta_yx[1]], [0.0, 1.0, delta_yx[0]], [0.0, 0.0, 1.0]]
+        )
         self.transformation = move_trans.dot(self.transformation)
         if self.model is not None:
             self.model.move(delta_yx[::-1])
         return self
 
     def get_transformed_coords(self, coords_xy):
-        assert coords_xy.shape == (2, ) or (coords_xy.ndim == 2 and coords_xy.shape[0] == 2)  # (2, ) or (2, n)
+        assert coords_xy.shape == (2,) or (
+            coords_xy.ndim == 2 and coords_xy.shape[0] == 2
+        )  # (2, ) or (2, n)
         return p2e(self.transformation.dot(e2p(coords_xy)))
 
     def get_inverse_transformed_coords(self, coords_xy):
-        assert coords_xy.shape == (2,) or (coords_xy.ndim == 2 and coords_xy.shape[0] == 2)  # (2, ) or (2, n)
+        assert coords_xy.shape == (2,) or (
+            coords_xy.ndim == 2 and coords_xy.shape[0] == 2
+        )  # (2, ) or (2, n)
         return p2e(np.linalg.inv(self.transformation).dot(e2p(coords_xy)))
 
     def get_transformed_angle(self, angle_deg):
@@ -122,7 +127,12 @@ class TransformableRegion:
                           is assumed to be the top-left corner), same as OpenCV
         :return:
         """
-        return (angle_deg + math.degrees(math.atan2(self.transformation[1, 0], self.transformation[0, 0]))) % 360
+        return (
+            angle_deg
+            + math.degrees(
+                math.atan2(self.transformation[1, 0], self.transformation[0, 0])
+            )
+        ) % 360
 
     def get_inverse_transformed_angle(self, angle_deg):
         """
@@ -131,13 +141,22 @@ class TransformableRegion:
                           is assumed to be the top-left corner), same as OpenCV
         :return:
         """
-        return (angle_deg - math.degrees(math.atan2(self.transformation[1, 0], self.transformation[0, 0]))) % 360
+        return (
+            angle_deg
+            - math.degrees(
+                math.atan2(self.transformation[1, 0], self.transformation[0, 0])
+            )
+        ) % 360
 
     def get_mask(self, alpha=False):
         assert np.all(self.transformation[2, :] == (0, 0, 1))
         assert self.mask is not None
-        mask = cv2.warpAffine(self.mask, self.transformation[:2], self.mask.shape[::-1],
-                              borderMode=cv2.BORDER_REPLICATE)
+        mask = cv2.warpAffine(
+            self.mask,
+            self.transformation[:2],
+            self.mask.shape[::-1],
+            borderMode=cv2.BORDER_REPLICATE,
+        )
         if alpha is False:
             return mask.astype(np.bool)
         else:
@@ -150,5 +169,9 @@ class TransformableRegion:
         else:
             assert self.mask is not None
             img = np.dstack((self.img, self.mask))
-        return cv2.warpAffine(img, self.transformation[:2], self.img.shape[:2][::-1],
-                              borderMode=cv2.BORDER_REPLICATE)
+        return cv2.warpAffine(
+            img,
+            self.transformation[:2],
+            self.img.shape[:2][::-1],
+            borderMode=cv2.BORDER_REPLICATE,
+        )
