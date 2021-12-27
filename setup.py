@@ -28,7 +28,8 @@ setup(
     packages=['shapes'],
     install_requires=[
         'opencv-python-headless',
-        'numpy',
+        'numpy <= 1.19; python_version <= "3.6"',
+        'numpy; python_version > "3.6"',
         'matplotlib',
     ],
     python_requires='>=3.6',
