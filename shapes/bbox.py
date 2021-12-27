@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
+
+from shapes.ep import column, e2p, p2e
 from shapes.shape import Shape
-from shapes.ep import p2e, e2p, column
 
 
 class BBox(Shape):

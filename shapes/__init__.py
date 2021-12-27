@@ -1,7 +1,8 @@
-from .angles import angle_absolute_error_direction_agnostic, angle_absolute_error
+from .angles import (angle_absolute_error,
+                     angle_absolute_error_direction_agnostic)
 from .bbox import BBox
 from .ellipse import Ellipse
-from .ep import p2e, e2p, column
+from .ep import column, e2p, p2e
 from .point import Point
 from .polygon import Polygon
 from .rotated_bbox import RotatedBBox

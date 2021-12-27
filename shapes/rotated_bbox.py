@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
-from shapes import BBox, p2e, e2p, column
+
+from shapes import BBox, column, e2p, p2e
 
 
 class RotatedBBox(BBox):
