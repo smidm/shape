@@ -1,4 +1,5 @@
-from .angles import angle_absolute_error, angle_absolute_error_direction_agnostic
+from .angles import (angle_absolute_error,
+                     angle_absolute_error_direction_agnostic)
 from .bbox import BBox
 from .ellipse import Ellipse
 from .ep import column, e2p, p2e
