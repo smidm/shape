@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/smidm/shapes.svg?branch=main)](https://travis-ci.com/smidm/shapes)
+
 `shapes` is a Python package for 2D shapes handling.
 
 # Features
