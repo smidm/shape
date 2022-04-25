@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/smidm/shapes.svg?branch=main)](https://travis-ci.com/smidm/shapes)
+[![Build Status](https://travis-ci.com/smidm/shape.svg?branch=main)](https://travis-ci.com/smidm/shape)
 
-`shapes` is a Python package for 2D shapes handling.
+`shape` is a Python package for 2D shapes handling.
 
 # Features
 
@@ -17,7 +17,7 @@
 
 # Installation
 
-`pip install git+https://github.com/smidm/shapes`
+`pip install git+https://github.com/smidm/shape`
 
 # Documentation
 

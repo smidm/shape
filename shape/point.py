@@ -1,6 +1,6 @@
 import numpy as np
 
-from shapes.shape import Shape
+from shape.shape import Shape
 
 
 class Point(Shape):

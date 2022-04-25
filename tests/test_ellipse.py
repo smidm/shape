@@ -2,7 +2,7 @@ import unittest
 
 import matplotlib.pylab as plt
 
-from shapes import Ellipse
+from shape import Ellipse
 
 
 class EllipseTestCase(unittest.TestCase):

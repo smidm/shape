@@ -25,5 +25,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: smidm/shapes
+    repo: smidm/shape
     python: 3.8

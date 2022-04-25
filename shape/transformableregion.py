@@ -4,7 +4,7 @@ import math
 import cv2
 import numpy as np
 
-from shapes.ep import e2p, p2e
+from shape.ep import e2p, p2e
 
 
 class TransformableRegion:

@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from shapes.shape import Shape
+from shape.shape import Shape
 
 # TODO: closed, open polygon?
 

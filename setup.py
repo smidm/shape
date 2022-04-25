@@ -16,7 +16,7 @@ def read(*names, **kwargs):
 
 
 setup(
-    name='shapes',
+    name='shape',
     version='0.1',
     license='MIT',
     description='2D shapes abstraction',
@@ -24,11 +24,11 @@ setup(
     long_description_content_type='text/markdown',
     author='Matěj Šmíd',
     author_email='m@matejsmid.cz',
-    url='https://github.com/smidm/shapes',
-    packages=['shapes'],
+    url='https://github.com/smidm/shape',
+    packages=['shape'],
     install_requires=[
         'opencv-python-headless',
-        'numpy <= 1.19; python_version <= "3.6"',
+#        'numpy <= 1.19; python_version <= "3.6"',
         'numpy; python_version > "3.6"',
         'matplotlib',
     ],
@@ -52,8 +52,8 @@ setup(
         'Topic :: Utilities',
     ],
     project_urls={
-        # 'Changelog': 'https://github.com/smidm/shapes/blob/master/CHANGELOG.md',
-        'Issue Tracker': 'https://github.com/smidm/shapes/issues',
+        # 'Changelog': 'https://github.com/smidm/shape/blob/master/CHANGELOG.md',
+        'Issue Tracker': 'https://github.com/smidm/shape/issues',
     },
     zip_safe=True,
 )

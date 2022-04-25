@@ -48,9 +48,9 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint/flake8: ## check style with flake8
-	flake8 shapes tests
+	flake8 shape tests
 lint/black: ## check style with black
-	black --check shapes tests
+	black --check shape tests
 
 lint: lint/flake8 lint/black ## check style
 
@@ -58,18 +58,18 @@ test: ## run tests quickly with the default Python
 	python setup.py test
 
 test-all: ## run tests on every Python version with tox
-	tox
+	tox -p
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source shapes setup.py test
+	coverage run --source shape setup.py test
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/shapes.rst
+	rm -f docs/shape.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ shapes
+	sphinx-apidoc -o docs/ shape
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html

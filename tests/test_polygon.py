@@ -2,7 +2,7 @@ import unittest
 
 from numpy.testing import assert_array_almost_equal
 
-from shapes import Polygon
+from shape import Polygon
 
 
 class PolygonTestCase(unittest.TestCase):

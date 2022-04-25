@@ -1,10 +1,10 @@
 import cv2
 import numpy as np
 
-from shapes import (angle_absolute_error,
-                    angle_absolute_error_direction_agnostic)
-from shapes.ep import column, e2p, p2e
-from shapes.point import Point
+from shape import (angle_absolute_error,
+                   angle_absolute_error_direction_agnostic)
+from shape.ep import column, e2p, p2e
+from shape.point import Point
 
 
 class Ellipse(Point):

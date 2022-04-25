@@ -3,8 +3,8 @@ import unittest
 import numpy as np
 from numpy.testing import assert_array_equal
 
-from shapes import (angle_absolute_error,
-                    angle_absolute_error_direction_agnostic)
+from shape import (angle_absolute_error,
+                   angle_absolute_error_direction_agnostic)
 
 
 class AnglesTestCase(unittest.TestCase):
