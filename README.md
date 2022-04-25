@@ -17,7 +17,7 @@
 
 # Installation
 
-`pip install git+https://github.com/smidm/shape`
+`pip install shape`
 
 # Documentation
 
